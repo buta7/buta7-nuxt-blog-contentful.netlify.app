@@ -1,18 +1,34 @@
 <template>
   <section class="slug">
-    <h1 class="slug_title">
-      タイトル
-    </h1>
-    <p class="slug_date">2018/8/2</p>
-    <div>
-      記事の内容。あああああああああああああああああああああああああああああああああああああああ
-    </div>
+    <h1 class="slug_title">{{ post.fields.title }}</h1>
+    <p class="slug_date">
+      {{ (new Date(post.fields.publishedAt)).toLocaleDateString() }}
+    </p>
+    <img class="slug_image" v-bind:src="post.fields.headerImage.fields.file.url"/>
+    {{post.fields.body}}
   </section>
 </template>
 
 <script>
+import {createClient} from '~/plugins/contentful.js'
+
+const client = createClient()
 export default {
   transition: 'slide-left',
+  components: {
+  },
+  async asyncData ({ env, params }) {
+    return await client.getEntries({
+      'content_type': env.CTF_BLOG_POST_TYPE_ID,
+      'fields.slug': params.slug,
+      order: '-sys.createdAt'
+    }).then(entries => {
+      return {
+        post: entries.items[0],
+      }
+    })
+    .catch(console.error)
+  }
 }
 </script>
 

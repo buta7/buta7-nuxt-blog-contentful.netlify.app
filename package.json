@@ -9,7 +9,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "contentful": "^7.14.6",
+    "dotenv": "^8.2.0",
     "nuxt": "^2.14.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-loader": "^4.0.2"
+  }
 }
