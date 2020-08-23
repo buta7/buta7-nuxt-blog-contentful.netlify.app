@@ -5,7 +5,7 @@
       {{ (new Date(post.fields.publishedAt)).toLocaleDateString() }}
     </p>
     <img class="slug_image" v-bind:src="post.fields.headerImage.fields.file.url"/>
-    {{post.fields.body}}
+    {{ post.fields.body.content[0].content[0].value }}
   </section>
 </template>
 
